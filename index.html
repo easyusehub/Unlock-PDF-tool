@@ -10,7 +10,7 @@ body{font-family:Arial,sans-serif;background:#f5f7fa;margin:0;padding:0;text-ali
 header{background:#fff;padding:15px;box-shadow:0 2px 5px rgba(0,0,0,.1);}
 header img{height:60px;}
 main{max-width:700px;margin:40px auto;background:#fff;padding:30px;border-radius:8px;box-shadow:0 4px 10px rgba(0,0,0,.08);}
-input[type=file], input[type=password]{margin:20px 0; padding:8px; width:80%; font-size:16px;}
+input[type=file], input[type=password]{margin:10px 0; padding:10px; width:80%; font-size:16px;}
 button{padding:12px 20px;border:none;border-radius:6px;font-size:16px;cursor:pointer;}
 button.unlock{background:#2563eb;color:#fff;}
 button.unlock:hover{background:#1e40af;}
@@ -18,8 +18,9 @@ button.premium{background:#f59e0b;color:#fff;margin:5px;}
 button.home{background:#10b981;color:#fff;margin:5px;}
 #progress-container{width:100%;max-width:400px;margin:20px auto;display:none;background:#e5e7eb;border-radius:5px;}
 #progress-bar{width:0%;height:20px;background:#2563eb;border-radius:5px;}
-#ad-placeholder{margin-top:40px;padding:20px;background:#f0f0f0;text-align:center;color:#777;}
+#ad-placeholder{margin:20px 0;padding:20px;background:#f0f0f0;text-align:center;color:#777;}
 #msg{margin-top:20px;font-weight:bold;}
+.instructions{margin:20px 0;font-size:16px;color:#333;}
 </style>
 </head>
 <body>
@@ -29,24 +30,28 @@ button.home{background:#10b981;color:#fff;margin:5px;}
 </header>
 
 <main>
-<h1>Unlock PDF</h1>
+  <div id="ad-placeholder">Top Ad Placeholder</div>
 
-<input type="file" id="pdfFile" accept="application/pdf"><br>
-<input type="password" id="pdfPassword" placeholder="Enter PDF Password"><br>
-<button class="unlock" onclick="unlockPDF()">Unlock PDF</button>
+  <div class="instructions">
+    1. Upload your password-protected PDF.<br>
+    2. Enter the PDF password.<br>
+    3. Click "Unlock PDF" to download the unlocked version.
+  </div>
 
-<div id="progress-container">
-  <div id="progress-bar"></div>
-</div>
+  <input type="file" id="pdfFile" accept="application/pdf"><br>
+  <input type="password" id="pdfPassword" placeholder="Enter PDF Password"><br>
+  <button class="unlock" onclick="unlockPDF()">Unlock PDF</button>
 
-<div id="msg"></div>
+  <div id="progress-container">
+    <div id="progress-bar"></div>
+  </div>
 
-<div style="margin-top:30px;">
-  <button class="premium" onclick="window.open('https://easyusehub.blogspot.com/p/free-pdf-tools-easyusehub.html?m=1','_blank')">All PDF Tools</button>
-  <button class="home" onclick="window.open('https://easyusehub.blogspot.com/?m=1','_blank')">Home</button>
-</div>
+  <div id="msg"></div>
 
-<div id="ad-placeholder">Ad space</div>
+  <div style="margin-top:30px;">
+    <button class="premium" onclick="window.open('https://easyusehub.blogspot.com/p/free-pdf-tools-easyusehub.html?m=1','_blank')">All PDF Tools</button>
+    <button class="home" onclick="window.open('https://easyusehub.blogspot.com/?m=1','_blank')">Home</button>
+  </div>
 </main>
 
 <script>
@@ -75,7 +80,6 @@ async function unlockPDF(){
     pages.forEach(p=>newPdf.addPage(p));
     const unlockedBytes = await newPdf.save();
 
-    // simulate progress
     progressBar.style.width='80%';
     await new Promise(r=>setTimeout(r,200));
 
@@ -90,7 +94,7 @@ async function unlockPDF(){
     msg.innerText="✅ PDF unlocked successfully!";
   }catch(e){
     console.error(e);
-    msg.innerText="❌ Failed to unlock PDF. Make sure password is correct.";
+    msg.innerText="❌ Failed to unlock PDF. Some PDFs may use encryption not supported by this browser tool.";
   }
 }
 </script>
